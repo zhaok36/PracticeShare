@@ -18,7 +18,7 @@ public class FirstLetterMap
       {
 
          // Create your map here
-         ...
+         TreeMap<Character, Set<String>> map = new TreeMap<>();
 
          while (in.hasNext())
          {
@@ -26,14 +26,28 @@ public class FirstLetterMap
             Character c = word.charAt(0);
 
             // Update the map here
-            // Use the Java 8 merge method
-            . . .
-
+            // Use the Java 8 merge method (needs modification)
+            /*
+            if(map.get(c) == null){
+               Set<String> set = new TreeSet<>();
+               set.add(word);
+               map.put(c, set);
+            }
+            else{
+               map.get(c).add(word);
+            }
+            /**/
+            Set<String> set = new TreeSet<>();
+            set.add(word);
+            map.merge(c, set, (ch, temp) -> {temp.add(word); return temp;});
          }
 
          // Print the map here in this form
          // a: [a, able, aardvark]
-         . . .
+         Set<Character> keySet = map.keySet();
+         for(Character c : keySet){
+            System.out.println(c + ": " + map.get(c));
+         }
       }
       catch (FileNotFoundException e)
       {
