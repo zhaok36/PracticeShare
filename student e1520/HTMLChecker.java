@@ -21,8 +21,36 @@ public class HTMLChecker
 
       try (Scanner in = new Scanner(new File(filename)))
       {
-         // Your code goes here
-         . . .
+Stack<String> tags = new Stack<>();
+         while (in.hasNext()){
+            String tag = in.next();
+            tags.push(tag);
+         }
+         Stack<String> test = new Stack<>();
+         
+         test.push(tags.pop());
+         boolean properlyNested = true;
+         while (!tags.empty() && properlyNested){
+            String tag = tags.pop();
+            if (tag.contains("/")){
+               test.push(tag);
+            }
+            else{
+               if (tag.charAt(1) == test.peek().charAt(2)){
+                  test.pop();
+               }
+               else{
+                  properlyNested = false;
+               }
+            }
+         }
+         
+         if (!properlyNested){
+            System.out.println("The HTML tags are not properly nested.");
+         }
+         else{
+            System.out.println("The HTML tags are properly nested");
+         }
 
 
 
