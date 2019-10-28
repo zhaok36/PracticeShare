@@ -39,7 +39,7 @@ public class FirstLetterMap
             /**/
             Set<String> set = new TreeSet<>();
             set.add(word);
-            map.merge(c, set, (ch, temp) -> {temp.add(word); return temp;});
+            map.merge(c, set, (ch, temp) -> {temp.add(word); temp.addAll(map.get(ch)); return temp;});
          }
 
          // Print the map here in this form
